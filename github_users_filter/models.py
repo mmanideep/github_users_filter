@@ -29,7 +29,7 @@ class GithubUser(User, BaseModel):
 
     def image_tag(self):
         avatar_url = "" if not self.avatar_url else self.avatar_url
-        return mark_safe('<img src="%s" width="150" height="150" />' % avatar_url)
+        return mark_safe('<img src="%s" width="50" height="50" />' % avatar_url)
 
     image_tag.short_description = "Image"
 
@@ -62,3 +62,17 @@ class GithubUser(User, BaseModel):
 class SearchApiCallLog(BaseModel):
     for_date = models.DateField()
     count = models.IntegerField(default=0)
+
+
+class GithubUserStats(GithubUser):
+    class Meta:
+        proxy = True
+        verbose_name = 'Github User Stats'
+        verbose_name_plural = 'Github User Stats'
+
+
+class SearchApiStats(SearchApiCallLog):
+    class Meta:
+        proxy = True
+        verbose_name = 'Search API Stats'
+        verbose_name_plural = 'Search API Stats'
